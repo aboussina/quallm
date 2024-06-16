@@ -22,7 +22,7 @@ class LLM:
         )
         callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
         self.text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=2000, chunk_overlap=50
+            chunk_size=1000, chunk_overlap=50
         )
         self.llm = LlamaCpp(
             model_path="D:/llms/solar-10.7b-instruct-v1.0.Q8_0.gguf",
@@ -48,7 +48,7 @@ class LLM:
             prompt_template = self.prompt_template.partial(corpus = corpus)
             qa_chain = RetrievalQA.from_chain_type(
                 self.llm,
-                retriever=vectorstore.as_retriever(search_kwargs={"k": 3}),
+                retriever=vectorstore.as_retriever(search_kwargs={"k": 6}),
                 chain_type_kwargs={"prompt": prompt_template},
             )
             
